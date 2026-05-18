@@ -909,6 +909,94 @@
     margin-top: 12px;
   }
 
+  /* === PIX COPIA E COLA === */
+  .pix-copy {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgba(10,22,40,0.06);
+  }
+
+  .pix-copy-label {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.6;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .pix-copy-code {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    word-break: break-all;
+    line-height: 1.5;
+    max-height: 90px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 14px;
+    border: 1px solid rgba(10,22,40,0.05);
+  }
+
+  .pix-copy-code::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(transparent, var(--cream));
+    pointer-events: none;
+  }
+
+  .pix-copy-btn {
+    width: 100%;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 16px 20px;
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s;
+  }
+
+  .pix-copy-btn:hover {
+    background: var(--ocean-deep);
+    transform: translateY(-1px);
+  }
+
+  .pix-copy-btn.copied {
+    background: var(--mint);
+    color: var(--paper);
+  }
+
+  .pix-copy-icon {
+    font-size: 16px;
+  }
+
+  .pix-copy-hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+    opacity: 0.55;
+    margin-top: 10px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+
   /* === CONTACT === */
   .contact-card {
     background: var(--ink);
@@ -1549,9 +1637,14 @@
         <div style="font-family:'Fraunces',serif;font-size:15px">Alessander Campo Dallorto</div>
       </div>
 
-      <div class="qr-card" style="margin-top:12px">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAAEiAQAAAAB1xeIbAAABe0lEQVR4nO2ZQW6DMBBF3xSkLMkNOIq5Qa8MR+kN8BKJ6HcBThqyaDYEA+OFJcZP4ms0jO2Pif9H9/UGBE455ZRTTuVO2TzKKWhNTJFmU12noIIkqQdrYglQSJL0TH1e1ymoeK/xNB6fQf7qD0J19WCffeNpqXLxLOJFL8nPVf2+qZT7SkAEuu/BRIS/l65c1e+b4u+WSiFCX4jQp0iQpDZX9fumprpfGAtaRnJVfwTKGgBiCVSD0VkJnZk9UZ/XdWxq6jlqAYJGpB6gGp9Wc1W/b2rOrvpCTP1emvq9Wjz3q1L3M+bNoOoR8QrddWtdZ6BSZVdjKvQ+rQSNfs5Zk0o9Jw2opNne0eg9Z01qeb6fir+t5qbvdb8iNec+pA33ZfLcr07dfcyuHoyuHpket9Z1ZGrppRH6GwblKOKGuk5JTcfLajCzevD/VmtSLz5m+CmBeBFwS7ZOrur3Tb34mPPldsT32rWppY+peSr0MHXyVe+UU0455dS71C9qavTF1kQHjgAAAABJRU5ErkJggg==" alt="QR Pix">
-        <div class="qr-label">Escaneie para pagar via Pix</div>
+      <div class="pix-copy" style="margin-top:12px">
+        <div class="pix-copy-label">— Pix Copia e Cola</div>
+        <div class="pix-copy-code" id="pixCode">00020101021126360014br.gov.bcb.pix0114+55279350002645204000053039865802BR5919ALESSANDER C D ORTO6010VILA VELHA62070503***6304A496</div>
+        <button class="pix-copy-btn" id="pixBtn" onclick="copyPix()">
+          <span class="pix-copy-icon">📋</span>
+          <span id="pixBtnText">Copiar código Pix</span>
+        </button>
+        <div class="pix-copy-hint">Cole no app do seu banco e informe o valor</div>
       </div>
 
       <div class="callout">
@@ -1749,19 +1842,11 @@
         </div>
       </div>
 
-      <div class="ornament">· · ·</div>
-
       <div class="card card-ocean">
         <div style="font-family:'Fraunces',serif;font-size:13px;letter-spacing:0.2em;text-transform:uppercase;opacity:0.6;margin-bottom:12px">Sua opinião importa</div>
         <div style="font-family:'Fraunces',serif;font-size:20px;line-height:1.4;font-weight:400">
           Caso retorne em breve, <em style="color:var(--sun)">teremos o maior prazer em recebê-lo novamente</em>. Sua avaliação ajuda muito futuros hóspedes.
         </div>
-      </div>
-
-      <div class="final">
-        <div class="final-mark">— Boa estadia</div>
-        <h1 class="final-title">Aproveite <em>Itaparica</em>.</h1>
-        <p class="final-text">Espetacular Residence · Vila Velha, ES</p>
       </div>
     </div>
   </section>
@@ -1824,6 +1909,63 @@
         fab.style.display = 'none';
       } else {
         fab.style.display = 'flex';
+      }
+    }
+  }
+
+  // === COPIAR PIX COPIA E COLA ===
+  function copyPix() {
+    const code = document.getElementById('pixCode').textContent.trim();
+    const btn = document.getElementById('pixBtn');
+    const btnText = document.getElementById('pixBtnText');
+    const originalText = btnText.textContent;
+
+    const onSuccess = () => {
+      btn.classList.add('copied');
+      btnText.textContent = 'Copiado com sucesso';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btnText.textContent = originalText;
+      }, 2200);
+    };
+
+    const onFail = () => {
+      // Fallback: seleciona o texto para o usuário copiar manualmente
+      const range = document.createRange();
+      range.selectNode(document.getElementById('pixCode'));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      btnText.textContent = 'Selecionado — copie manualmente';
+      setTimeout(() => {
+        btnText.textContent = originalText;
+        window.getSelection().removeAllRanges();
+      }, 3000);
+    };
+
+    // Método moderno (clipboard API)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(onSuccess).catch(() => {
+        // Fallback: execCommand
+        tryExecCommand();
+      });
+    } else {
+      tryExecCommand();
+    }
+
+    function tryExecCommand() {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) onSuccess();
+        else onFail();
+      } catch (e) {
+        onFail();
       }
     }
   }
