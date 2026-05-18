@@ -48,27 +48,126 @@
     box-shadow: var(--shadow-lg);
   }
 
-  /* === STATUS BAR FAKE === */
-  .statusbar {
-    height: 44px;
+  /* === TELA DE SENHA === */
+  .lock-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, #0A1628 0%, #1A3F5C 60%, #2B5C7E 100%);
+    color: var(--paper);
+    z-index: 9999;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
+    justify-content: center;
+    padding: 40px 32px;
+  }
+  .lock-screen.hidden { display: none; }
+
+  .lock-content {
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .lock-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--sun);
+    margin-bottom: 24px;
+  }
+
+  .lock-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .lock-title {
+    font-family: 'Fraunces', serif;
+    font-size: 36px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .lock-title em {
+    font-style: italic;
+    color: var(--sun);
+  }
+
+  .lock-subtitle {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(250,247,242,0.65);
+    margin-bottom: 32px;
+  }
+
+  .lock-input {
+    width: 100%;
+    background: rgba(250,247,242,0.08);
+    border: 1px solid rgba(250,247,242,0.15);
+    border-radius: 16px;
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    text-align: center;
+    color: var(--paper);
+    letter-spacing: 0.3em;
+    outline: none;
+    margin-bottom: 14px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .lock-input:focus {
+    border-color: var(--sun);
+    background: rgba(250,247,242,0.12);
+  }
+
+  .lock-input::placeholder {
+    color: rgba(250,247,242,0.3);
+    letter-spacing: 0.3em;
+  }
+
+  .lock-btn {
+    width: 100%;
+    background: var(--sun);
+    color: var(--ink);
+    border: none;
+    padding: 16px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: var(--ink);
-    background: var(--paper);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .statusbar .time { font-feature-settings: 'tnum'; }
-  .statusbar .icons { display: flex; gap: 6px; font-size: 12px; }
+
+  .lock-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(232,163,61,0.35);
+  }
+
+  .lock-error {
+    font-size: 12px;
+    color: var(--coral);
+    margin-top: 12px;
+    min-height: 16px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .lock-hint {
+    font-size: 11px;
+    color: rgba(250,247,242,0.4);
+    margin-top: 28px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
 
   /* === TELAS === */
   .screen {
-    min-height: calc(100vh - 44px);
+    min-height: 100vh;
     padding: 0 0 100px 0;
     display: none;
     animation: fadeIn 0.4s ease;
@@ -223,13 +322,13 @@
 
   /* === HEADER COMUM === */
   .header {
-    padding: 16px 24px 12px;
+    padding: 12px 24px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: var(--paper);
     position: sticky;
-    top: 44px;
+    top: 0;
     z-index: 50;
     border-bottom: 1px solid rgba(10,22,40,0.06);
   }
@@ -262,7 +361,7 @@
 
   /* === MENU PRINCIPAL === */
   .menu-hero {
-    padding: 32px 24px 24px;
+    padding: 16px 24px 16px;
   }
 
   .menu-greeting {
@@ -388,11 +487,11 @@
 
   /* === SCREEN CONTENT === */
   .screen-content {
-    padding: 24px;
+    padding: 16px 24px 24px;
   }
 
   .screen-hero {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
 
   .screen-eyebrow {
@@ -1010,10 +1109,28 @@
 
 <div class="app">
 
-  <!-- ========== STATUS BAR ========== -->
-  <div class="statusbar">
-    <span class="time">9:41</span>
-    <span class="icons">●●● ◢ 100%</span>
+  <!-- ========== TELA DE SENHA ========== -->
+  <div id="lockScreen" class="lock-screen">
+    <div class="lock-content">
+      <div class="lock-mark">— acesso restrito</div>
+      <div class="lock-icon">🔒</div>
+      <h1 class="lock-title">Olá, <em>hóspede</em>.</h1>
+      <p class="lock-subtitle">
+        Para acessar o manual, digite o código de acesso enviado junto com a sua reserva.
+      </p>
+      <input
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        id="lockInput"
+        class="lock-input"
+        placeholder="● ● ● ● ● ●"
+        maxlength="20"
+      >
+      <button class="lock-btn" onclick="unlock()">Acessar manual →</button>
+      <div id="lockError" class="lock-error"></div>
+      <div class="lock-hint">Em caso de dúvida, fale com o anfitrião pelo WhatsApp.</div>
+    </div>
   </div>
 
   <!-- ========== HOME / SPLASH ========== -->
@@ -1703,6 +1820,43 @@
 </div>
 
 <script>
+  // === SENHA DE ACESSO ===
+  const SENHA = '556649';
+  const STORAGE_KEY = 'esp_manual_unlocked';
+
+  // Se já desbloqueou nessa sessão, esconde a tela de senha
+  if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+    document.getElementById('lockScreen').classList.add('hidden');
+  }
+
+  function unlock() {
+    const input = document.getElementById('lockInput');
+    const error = document.getElementById('lockError');
+    const valor = input.value.trim();
+    
+    if (valor === SENHA) {
+      sessionStorage.setItem(STORAGE_KEY, '1');
+      document.getElementById('lockScreen').classList.add('hidden');
+      error.textContent = '';
+    } else {
+      error.textContent = 'Código incorreto. Tente novamente.';
+      input.value = '';
+      input.focus();
+      // Animação de erro
+      input.style.borderColor = '#D85A4A';
+      setTimeout(() => input.style.borderColor = '', 1500);
+    }
+  }
+
+  // Enter no input dispara o desbloqueio
+  document.getElementById('lockInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      unlock();
+    }
+  });
+
+  // === NAVEGAÇÃO ENTRE TELAS ===
   function goTo(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(id);
